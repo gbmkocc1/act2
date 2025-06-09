@@ -1,0 +1,41 @@
+# 🌍 Terraform
+.terraform/
+.tfstate
+.tfstate.backup
+.terraform.lock.hcl
+crash.log
+terraform.tfvars
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+
+# 🔐 Sensitive files
+.pem
+.key
+.env
+.envrc
+
+# 🔄 Mac/Linux system files
+.DS_Store
+.swp
+
+# 💥 Log & temp files
+.log
+.bak
+.tmp
+.backup
+
+# 📦 Local module cache
+**/modules/*
+
+# 🚀 GitHub Actions (optional)
+.github/workflows/.terraform/     # in case modules are used in GHA runs
+.github/terraform.tfstate         # state files from workflows (if any)
+
+# 🧪 Test or debug artifacts
+coverage/
+test-results/
+.out
+
+# ✅ Ignore plan files if you commit `.tfplan`
+.tfplan
+
