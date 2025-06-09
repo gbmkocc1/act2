@@ -20,6 +20,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Show file structure 🗂️
+        run: ls -la    # 👈 This is the diagnostic line
+
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v2
         with:
