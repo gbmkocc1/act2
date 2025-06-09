@@ -6,22 +6,19 @@ on:
       - main
 
 permissions:
-  id-token: write        # ✅ Required for OIDC auth
-  contents: read         # ✅ Needed to checkout code
+  id-token: write
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./terraform  # ✅ only if your .tf files are in /terraform
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Show file structure 🗂️
-        run: ls -la    # 👈 This is the diagnostic line
+      - name: Show repo structure
+        run: ls -la
 
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v2
@@ -35,19 +32,10 @@ jobs:
           terraform_version: 1.8.2
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform -chdir=. init  # ✅ use -chdir instead of working-directory
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform -chdir=. plan  # ✅ still runs in the same place
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
-
-      - name: Get OIDC Token
-        id: id_token
-        uses: actions/github-script@v6
-        with:
-          script: return await core.getIDToken();
-
-      - name: Print OIDC Token
-        run: echo "${{ steps.id_token.outputs.token }}"
+        run: terraform -chdir=. apply -auto-approve
