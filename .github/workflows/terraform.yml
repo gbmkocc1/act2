@@ -17,14 +17,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Debug Directory Structure
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Root contents:"
-          ls -la
-          echo "Terraform folder contents:"
-          ls -la terraform/
+      - name: Show repo structure
+        run: ls -la
 
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v2
@@ -38,10 +32,10 @@ jobs:
           terraform_version: 1.8.2
 
       - name: Terraform Init
-        run: terraform -chdir=./terraform init
+        run: terraform -chdir=. init  # ✅ use -chdir instead of working-directory
 
       - name: Terraform Plan
-        run: terraform -chdir=./terraform plan
+        run: terraform -chdir=. plan  # ✅ still runs in the same place
 
       - name: Terraform Apply
-        run: terraform -chdir=./terraform apply -auto-approve
+        run: terraform -chdir=. apply -auto-approve
