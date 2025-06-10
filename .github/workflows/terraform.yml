@@ -32,10 +32,11 @@ jobs:
           terraform_version: 1.8.2
 
       - name: Terraform Init
-        run: terraform -chdir=. init  # ✅ use -chdir instead of working-directory
+        run: terraform -chdir=terraform init
 
       - name: Terraform Plan
-        run: terraform -chdir=. plan  # ✅ still runs in the same place
+        run: terraform -chdir=terraform plan
 
       - name: Terraform Apply
-        run: terraform -chdir=. apply -auto-approve
+        run: terraform -chdir=terraform apply -auto-approve
+
